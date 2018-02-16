@@ -77,6 +77,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
                 <executions>
                     <execution>
                         <id>empty-javadoc-jar</id>
@@ -172,7 +173,7 @@
         <dependency>
             <groupId>com.github.xmlet</groupId>
             <artifactId>xsdAsm</artifactId>
-            <version>1.0.3-snapshot</version>
+            <version>1.0.3</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
