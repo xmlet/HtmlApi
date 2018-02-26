@@ -28,10 +28,10 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>XsdAsmMain</mainClass>
+                    <mainClass>org.xmlet.xsdasm.main.XsdAsmMain</mainClass>
                     <arguments>
                         <argument>${project.basedir}\src\main\resources\html_5.xsd</argument>
-                        <argument>HtmlApi</argument>
+                        <argument>htmlapi</argument>
                     </arguments>
                 </configuration>
             </plugin>
@@ -173,7 +173,7 @@
         <dependency>
             <groupId>com.github.xmlet</groupId>
             <artifactId>xsdAsm</artifactId>
-            <version>1.0.4</version>
+            <version>1.0.5</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
