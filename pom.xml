@@ -3,7 +3,7 @@
 
     <groupId>com.github.xmlet</groupId>
     <artifactId>htmlApi</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
@@ -154,7 +154,7 @@
         <developerConnection>scm:git:git@github.com:xmlet/HtmlApi.git</developerConnection>
         <url>git@github.com:xmlet/HtmlApi.git</url>
         <!--tag>HEAD</tag-->
-      <tag>htmlApi-1.0.4</tag>
+      <tag>htmlApi-1.0.0</tag>
   </scm>
     <distributionManagement>
         <snapshotRepository>
