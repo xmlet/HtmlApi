@@ -14,28 +14,6 @@
 
     <build>
         <plugins>
-            <!--plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
-                <executions>
-                    <execution>
-                        <id>my-execution</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>org.xmlet.xsdasm.main.XsdAsmMain</mainClass>
-                    <arguments>
-                        <argument>${project.basedir}\src\main\resources\html_5.xsd</argument>
-                        <argument>htmlapi</argument>
-                    </arguments>
-                </configuration>
-            </plugin-->
-
             <plugin>
                 <artifactId>exec-maven-plugin</artifactId>
                 <groupId>org.codehaus.mojo</groupId>
@@ -104,19 +82,16 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
                 <executions>
                     <execution>
-                        <id>empty-javadoc-jar</id>
-                        <phase>package</phase>
+                        <id>attach-javadocs</id>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>
+                                jar
+                            </goal>
                         </goals>
-                        <configuration>
-                            <classifier>javadoc</classifier>
-                            <classesDirectory>${basedir}/javadoc</classesDirectory>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -201,7 +176,7 @@
         <dependency>
             <groupId>com.github.xmlet</groupId>
             <artifactId>xsdAsm</artifactId>
-            <version>1.0.8</version>
+            <version>1.0.9-snapshot</version>
             <scope>compile</scope>
         </dependency>
 
