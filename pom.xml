@@ -3,7 +3,7 @@
 
     <groupId>com.github.xmlet</groupId>
     <artifactId>htmlApi</artifactId>
-    <version>1.0.8-SNAPSHOT</version>
+    <version>1.0.9-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
@@ -20,13 +20,23 @@
                 <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <id>create_classes</id>
+                        <id>create_classes1</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${basedir}/create_classes.bat</executable>
+                            <executable>${basedir}/create_classes1.bat</executable>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>create_classes2</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${basedir}/create_classes2.bat</executable>
                         </configuration>
                     </execution>
                     <execution>
