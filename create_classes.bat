@@ -1,4 +1,4 @@
-if exist "./target/checkout" (
+if exist "./../../target/checkout" (
 	ECHO START
 	if exist "./../../src/main/java" rmdir "./../../src/main/java" /s /q
 	if not exist "./../../target/classes/org/xmlet/htmlapi" mkdir "./../../target/classes/org/xmlet/htmlapi"
