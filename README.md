@@ -6,7 +6,7 @@
 
 # HtmlApi
 
-<div style="text-align: right"> 
+<div style="text-align:right"> 
     HtmlApi is a fluent java API that represents the HTML5 syntax in a java environment. It follows the xml schema 
     definition for the HTML5 language, which means that all the syntax rules are enforced, being value restrictions on 
     attribute values or element organization. This API can be used in multiple ways, since all the elements present 
@@ -22,7 +22,7 @@
 
 ## Installation
 
-<div style="text-align: right"> 
+<div style="text-align:right"> 
     First, in order to include it to your Maven project, simply add this dependency:
     <br />
     <br />
@@ -38,7 +38,7 @@
 
 ## Usage
 
-<div style="text-align: right"> 
+<div style="text-align:right"> 
     Below it is presented a java example that shows how the API works. It has the following HTML as base.
     <br />
     <br />
@@ -99,7 +99,7 @@ public class HtmlApiExample {
 }
 ```
 
-<div style="text-align: right"> 
+<div style="text-align:right"> 
     Showing as an example a very basic implementation of a Visitor we can have a Visitor that writes the html to the 
     console. It does not indent the HTML but it shows that implementing a simple Visitor requires very few lines of code.
     <br />
@@ -129,7 +129,7 @@ public class ConsoleVisitor<R> extends AbstractElementVisitor<R> {
 }
 ```
 
-<div style="text-align: right">
+<div style="text-align:right">
     A more complete example of a Visitor can be checked at:
     <br />
     <br />
@@ -138,7 +138,7 @@ public class ConsoleVisitor<R> extends AbstractElementVisitor<R> {
 
 ### Element binding
 
-<div style="text-align: right">
+<div style="text-align:right">
     In order to support repetitive tasks over an element binders were implemented. This allows for users to define, 
     for example, templates for a given element. An example is presented below.
     <br />
@@ -164,19 +164,16 @@ public class BinderExample{
 }
 ````
 
-<div style="text-align: right">
+<div style="text-align:right">
     In this example a table is created, and a title is added in the first row as a title header. In regard to the values 
     present in the table instead of having them inserted right away it is possible delay that insertion by indicating 
     what will the element do when the information is received. This way a template can be defined and reused with 
-    different values. A full example of how this works is available at the method testBinderUsage in the following link:
-    <br />
-    <br />
-    <a href="https://github.com/xmlet/HtmlApiTest/blob/master/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java">Binder usage full example</a>
-</div>   
+    different values. A full example of how this works is available at the method <a href="https://github.com/xmlet/HtmlApiTest/blob/master/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java">testBinderUsage</a>.
+</div>
 
 ## Code Quality
 
-<div style="text-align: right"> 
+<div style="text-align:right"> 
     In order to test this library some tests were made, some directly test existing features and others just used 
     reflection in order to navigate the API in order to check for unexpected behaviour. These tests cover most of the 
     code, if you are interested in verifying the code quality, vulnerabilities and other various metrics, 
@@ -186,3 +183,13 @@ public class BinderExample{
     <a href="https://sonarcloud.io/dashboard?id=com.github.xmlet%3AhtmlApiTest">Sonarcloud Statistics</a>
 </div>
   
+## Final remarks
+
+<div style="text-align:right"> 
+    Even though this API is created based on aumatically generated classes there are a few nuances. In order to provide 
+    API users with source files and java documentation of the API, the automatically generated classes are decompiled, 
+    using <a href="https://mvnrepository.com/artifact/org.jboss.windup.decompiler/decompiler-fernflower/4.0.0.Final">Fernflower Decompiler used by Intellij</a>, 
+    and then compiled regularly by the maven lifecycle. This process, apart from allowing the API users to have the 
+    source and documention files also allows to verify that there are no compiler problems with the code, which is very 
+    helpful when making changes in the way that this API is generated.
+</div>

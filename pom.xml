@@ -26,7 +26,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${basedir}/create_classes1.bat</executable>
+                            <executable>${basedir}/create_class_binaries.bat</executable>
                         </configuration>
                     </execution>
                     <execution>
@@ -36,7 +36,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${basedir}/create_classes2.bat</executable>
+                            <executable>${basedir}/decompile_class_binaries.bat</executable>
                         </configuration>
                     </execution>
                     <execution>
