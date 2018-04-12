@@ -10,11 +10,11 @@
     HtmlApi is a fluent java API that represents the HTML5 syntax in a java environment. It follows the xml schema 
     definition for the HTML5 language, which means that all the syntax rules are enforced, being value restrictions on 
     attribute values or element organization. This API can be used in multiple ways, since all the elements present 
-    implement the Visitor pattern, so it is possible to define your own Visitor implementation for objectives such as 
-    writing well formed to a text file, a stream, a database, etc.   
+    implement the Visitor pattern, so it is possible to define your own Visitor implementation for different goals such
+    as printing well-formed, writing to a file, a stream, a database, etc.   
     <br />
     <br />
-    All the code present in this library was automatically generated based on the XSD file of HTML5. In order to 
+    All the java code in HtmlApi library is automatically generated based on the XSD file of HTML5. In order to 
     generate this code some additional libraries were needed such as <a href="https://github.com/xmlet/XsdAsm">XsdAsm</a>
     , <a href="https://github.com/xmlet/XsdParser">XsdParser</a> and <a href="http://asm.ow2.org/">ASM</a>. 
     More information of how this library was generated will be added further.
@@ -39,7 +39,8 @@
 ## Usage
 
 <div style="text-align:right"> 
-    Below it is presented a java example that shows how the API works. It has the following HTML as base.
+    Below it is presented a java example that shows the use of the HtmlApi to produce an HTML document similar to the
+    following one:
     <br />
     <br />
 </div>
@@ -100,7 +101,9 @@ public class HtmlApiExample {
 ```
 
 <div style="text-align:right"> 
-    Showing as an example a very basic implementation of a Visitor we can have a Visitor that writes the html to the 
+    <!---!!!! Must explain the large set of methods in Visitor, each one for each kind of element.-->
+    <!---!!!! Must explain the idea of the AbstractElementVisitor to avoid implementing all useless methods.-->
+    In the following we present an example with a very basic implementation of a Visitor that writes the html to the 
     console. It does not indent the HTML but it shows that implementing a simple Visitor requires very few lines of code.
     <br />
     <br />   
