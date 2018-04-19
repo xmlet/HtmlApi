@@ -100,15 +100,17 @@ public class HtmlApiExample {
 ```
 
 <div style="text-align:right"> 
-    Now, in order to achieve some results with the code presented above a concrete implementation of a Visitor is needed.
+    Now, in order to achieve some results with the code presented above we need a concrete implementation of a Visitor.
     There are two existing classes in order to support the Visitor pattern, the ElementVisitor interface which has a method
-    for every element class that exists in a given API and AbstractElementVisitor which provides a simplified ElementVisitor
-    interface. In AbstractElementVisitor there are methods for every API element, but in this case each method calls a single
-    shared method. This means that if all your elements share a behaviour it is possible to just redefine that single method
-    or even if only some methods have diferent behaviour it is possible to implement the shared behaviour in the shared method
-    and override the implementation of the ones that have diferent behaviour.
-    Showing as an example a very basic implementation of a Visitor we can have a Visitor that writes the html to the 
-    console. It does not indent the HTML but it shows that implementing a simple Visitor requires very few lines of code.
+    for every element class (e.g. visit(Div div), visit(Input input), etc) that exists in a given API, and the
+    AbstractElementVisitor which exists as convenience for creating ElementVisitor objects.
+    The AbstractElementVisitor implements all abstract methods specified by the ElementVisitor interface, thus there is one method
+    for each API element. All methods implementations redirect to the visit(Element element) method.
+    This means that if all your elements share a behaviour it is possible to just redefine that single method (i.e. visit(Element 
+    element)). On the other-hand if only some methods have diferent behaviour then just override the implementation of those ones and 
+    leave the other methods with their default implementation inherited from AbstractElementVisitor.
+    Showing as an example a very basic implementation of a Visitor that writes the html to the console. 
+    It does not indent the HTML but it shows that implementing a simple Visitor requires very few lines of code.
     <br />
     <br />   
 </div>
