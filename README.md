@@ -6,7 +6,7 @@
 
 # HtmlApi
 
-<div style="text-align:right"> 
+<div align="justify"> 
     HtmlApi is a fluent java API that represents the HTML5 syntax in a java environment. It follows the xml schema 
     definition for the HTML5 language, which means that all the syntax rules are enforced, being value restrictions on 
     attribute values or element organization. This API can be used in multiple ways, since all the elements present 
@@ -22,7 +22,7 @@
 
 ## Installation
 
-<div style="text-align:right"> 
+<div align="justify"> 
     First, in order to include it to your Maven project, simply add this dependency:
     <br />
     <br />
@@ -38,7 +38,7 @@
 
 ## Usage
 
-<div style="text-align:right"> 
+<div align="justify"> 
     Below it is presented a java example that shows how the API works. It has the following HTML as base.
     <br />
     <br />
@@ -99,7 +99,7 @@ public class HtmlApiExample {
 }
 ```
 
-<div style="text-align:right"> 
+<div align="justify"> 
     Now, in order to achieve some results with the code presented above a concrete implementation of a Visitor is needed.
     There are two existing classes in order to support the Visitor pattern, the ElementVisitor interface which has a method
     for every element class that exists in a given API and AbstractElementVisitor which provides a simplified ElementVisitor
@@ -131,7 +131,7 @@ public class ConsoleVisitor<R> extends AbstractElementVisitor<R> {
 }
 ```
 
-<div style="text-align:right">
+<div align="justify"> 
     A more complete example of a Visitor can be checked at:
     <br />
     <br />
@@ -140,7 +140,7 @@ public class ConsoleVisitor<R> extends AbstractElementVisitor<R> {
 
 ### Element binding
 
-<div style="text-align:right">
+<div align="justify"> 
     In order to support repetitive tasks over an element binders were implemented. This allows for users to define, 
     for example, templates for a given element. An example is presented below.
     <br />
@@ -166,7 +166,7 @@ public class BinderExample{
 }
 ````
 
-<div style="text-align:right">
+<div align="justify"> 
     In this example a table is created, and a title is added in the first row as a title header. In regard to the values 
     present in the table instead of having them inserted right away it is possible delay that insertion by indicating 
     what will the element do when the information is received. This way a template can be defined and reused with 
@@ -175,7 +175,7 @@ public class BinderExample{
 
 ## Code Quality
 
-<div style="text-align:right"> 
+<div align="justify"> 
     In order to test this library some tests were made, some directly test existing features and others just used 
     reflection in order to navigate the API in order to check for unexpected behaviour. These tests cover most of the 
     code, if you are interested in verifying the code quality, vulnerabilities and other various metrics, 
@@ -187,7 +187,7 @@ public class BinderExample{
   
 ## Final remarks
 
-<div style="text-align:right"> 
+<div align="justify">  
     Even though this API is created based on aumatically generated classes there are a few nuances. In order to provide 
     API users with source files and java documentation of the API, the automatically generated classes are decompiled, 
     using <a href="https://mvnrepository.com/artifact/org.jboss.windup.decompiler/decompiler-fernflower/4.0.0.Final">Fernflower Decompiler used by Intellij</a>, 
