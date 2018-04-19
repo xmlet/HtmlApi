@@ -116,15 +116,10 @@ public class HtmlApiExample {
 ```java
 public class ConsoleVisitor<R> extends AbstractElementVisitor<R> {
 
-    private PrintStream DEFAULT_PRINT_STREAM = new PrintStream(System.out);
-    private PrintStream printStream = DEFAULT_PRINT_STREAM;
+    private PrintStream printStream = new PrintStream(System.out);
 
     public ConsoleVisitor(){}
-
-    public ConsoleVisitor(R model){
-        this.model = model;
-    }
-
+    
     @Override
     public <T extends Element> void visit(Element<T, ?> element) {
         printStream.printf("<%s>\n", element.getName());
