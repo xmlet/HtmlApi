@@ -6,7 +6,7 @@
 
 # HtmlApi
 
-<div style="align:justify"> 
+<div text-align="justify"> 
     HtmlApi is a fluent java API that represents the HTML5 syntax in a java environment. It follows the xml schema 
     definition for the HTML5 language, which means that all the syntax rules are enforced, being value restrictions on 
     attribute values or element organization. This API can be used in multiple ways, since all the elements present 
