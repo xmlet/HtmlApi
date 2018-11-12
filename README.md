@@ -7,16 +7,16 @@
 # HtmlApi
 
 <div align="justify"> 
-    HtmlApi is a fluent java API that represents the HTML5 syntax in a java environment. It follows the xml schema 
-    definition for the HTML5 language, which means that all the syntax rules are enforced, being value restrictions on 
-    attribute values or element organization. This API can be used in multiple ways, since all the elements present 
-    implement the Visitor pattern, so it is possible to define your own Visitor implementation for objectives such as 
-    writing well formed to a text file, a stream, a database, etc.   
+    HtmlApi is a fluent Java DSL for the HTML5.2 language. It follows the XML schema 
+    definition, i.e. XSD, for the HTML5.2 language, which means that all the syntax rules are enforced, either being attribute 
+    value restrictions or regarding element organization. This DSL can be used in multiple ways, since all the classes present 
+    in this DSL implement the Visitor pattern, so it is possible to define your own Visitor implementation to manipulate the HTML language 
+    for any purpose, for example, to writing well formed HTML to a text file, a stream, a database, etc.   
     <br />
     <br />
-    All the code present in this library was automatically generated based on the XSD file of HTML5. In order to 
-    generate this code some additional libraries were needed such as <a href="https://github.com/xmlet/XsdAsm">XsdAsm</a>
-    , <a href="https://github.com/xmlet/XsdParser">XsdParser</a> and <a href="http://asm.ow2.org/">ASM</a>. 
+    All the code present in this library was automatically generated based a XSD file representing the rules of HTML5.2. 
+    In order to generate this code some additional libraries were needed such as <a href="https://github.com/xmlet/XsdAsm">XsdAsm</a>, 
+    <a href="https://github.com/xmlet/XsdParser">XsdParser</a> and <a href="http://asm.ow2.org/">ASM</a>. 
     More information of how this library was generated will be added further.
 </div>
 
@@ -39,7 +39,7 @@
 ## Usage
 
 <div align="justify"> 
-    Below it is presented a java example that shows how the API works. It has the following HTML as base.
+    Below it is presented a Java example that shows how the DSL works. It has the following HTML as base.
     <br />
     <br />
 </div>
@@ -79,119 +79,179 @@ public class HtmlApiExample {
         Html<Html> root = new Html<>();
 
         root.head()
-                .meta().attrCharset("UTF-8").º()
+                .meta().attrCharset("UTF-8").__()
                 .title()
-                    .text("Title").º()
-                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/images/favicon.png").º()
-                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/styles/main.css").º().º()
+                    .text("Title")
+                .__()
+                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/images/favicon.png").__()
+                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/styles/main.css").__()
+            .__()
             .body().attrClass("clear")
                 .div()
                     .header()
                         .section()
                             .div()
-                                .img().attrId("brand").attrSrc("./assets/images/logo.png").º()
+                                .img().attrId("brand").attrSrc("./assets/images/logo.png").__()
                                 .aside()
                                     .em()
                                         .text("Advertisement: ")
-                                    .span()
-                                        .text("HtmlApi is great!");
+                                        .span()
+                                            .text("HtmlApi is great!");
     }
 }
 ```
 
 <div align="justify"> 
-    Now, in order to achieve some results with the code presented above a concrete implementation of a Visitor is needed.
-    There are two existing classes in order to support the Visitor pattern, the ElementVisitor interface which has a method
-    for every element class that exists in a given API and AbstractElementVisitor which provides a simplified ElementVisitor
-    interface. In AbstractElementVisitor there are methods for every API element, but in this case each method calls a single
-    shared method. This means that if all your elements share a behaviour it is possible to just redefine that single method
-    or even if only some methods have diferent behaviour it is possible to implement the shared behaviour in the shared method
-    and override the implementation of the ones that have diferent behaviour.
-    Showing as an example a very basic implementation of a Visitor we can have a Visitor that writes the html to the 
-    console. It does not indent the HTML but it shows that implementing a simple Visitor requires very few lines of code.
+    The DSL that the HtmlApi provides is pretty straightforward. After creating an <i>Html</i> element we can keep on
+    creating the HTML element tree by invoking methods of the <i>Html</i> class. Each class that represents an HTML element,
+    such as <i>Html</i>, <i>Div</i>, <i>P</i>, etc. has its respective methods, acording to the HTML5.2 language specification.
+    The naming convention of the methods has two variants:
     <br />
-    <br />   
+    <br />
+    <ul>
+         <li>
+             When adding another element - The method has the name of the element being added, i.e. calling the <i>head()</i> method 
+             on the <i>root</i> variable will add a <i>head</i> instance to the <i>html</i> children list.
+         </li>
+         <li>
+             When adding another attribute - The method name has the prefix <i>attr</i> before the attribute name.
+         </li>
+    </ul>
+    A few notes regarding the usage of the DSL:
+    <br />
+    <br />
+    <ul>
+        <li>
+            The methods which add elements to the element tree return the newly created element.
+        </li>
+        <li>
+            The methods which add attributes to the element attributes return the element where the attribute was added.
+        </li>
+        <li>
+            To navigate to the parent element we have the <i>__()</i> method.
+        </li>
+    </ul>
+</div>
+
+### The Visitor Pattern
+
+<div align="justify">
+    Having the Java code presented in the previous example how can we generate the respective HTML document? We need to implement
+    the <i>ElementVisitor</i> abstract class. This class has four different abstract methods:
+    <br />
+    <br />
+    <ul>
+        <li>
+            <i>sharedVisit(Element<T, ?> element)</i> - This method is called whenever a class generated based on a XSD <i>xsd:element</i> has its
+            <i>accept</i> method called. By receiving the <i>Element</i> we have access to the element children and attributes.
+        </li>
+        <li>
+            <i>visit(Text text)</i> - This method is called when the <i>accept</i> method of the special <i>Text</i> element is invoked.
+        </li>
+        <li>
+            <i>visit(Comment comment)</i> - This method is called when the <i>accept</i> method of the special <i>Comment</i> element is invoked.
+        </li>
+        <li>
+            <i>visit(TextFuction<R, U, ?> textFunction)</i> - This method is called when the <i>accept</i> method of the special 
+                                                        <i>TextFunction</i> element is invoked.
+        </li>
+    </ul>
+    By implementing these methods we can achieve a solution that manipulates the HTML language for any objective.
+    Apart from those four methods we also have methods for each HTML element, such as <i>html</i>, <i>body</i>, <i>table</i>, etc. 
+    which provides more control when defining the behaviour in the Visitor implementation. All these methods default behaviour
+    is to invoke the <i>sharedVisit</i> method as shown in the following snippet of the <i>ElementVisitor</i> class.   
 </div>
 
 ```java
-public class ConsoleVisitor<R> extends AbstractElementVisitor<R> {
+abstract class ElementVisitor<R> {
+   public abstract <T extends Element> void sharedVisit(Element<T, ?> var1);
 
-    private PrintStream bufferedOutputStream = new PrintStream(System.out);
+   public abstract void visit(Text var1);
 
-    public ConsoleVisitor(){}
-    
-    @Override
-    public <T extends Element> void visit(Element<T, ?> element) {
-        bufferedOutputStream.printf("<%s>\n", element.getName());
+   public abstract void visit(Comment var1);
 
-        element.getChildren().forEach(item -> item.accept(this));
-    
-        bufferedOutputStream.printf("</%s>\n", element.getName());
-    }
+   public abstract <U> void visit(TextFunction<R, U, ?> var1);
+
+   public void visit(Html html) {
+      this.sharedVisit(html);
+   }
+   
+   public void visit(Body body) {
+      this.sharedVisit(body);
+   }
+   
+   public void visit(Table table) {
+      this.sharedVisit(table);
+   }
 }
 ```
 
 <div align="justify"> 
-    A more complete example of a Visitor can be checked at:
-    <br />
-    <br />
-    <a href="https://github.com/xmlet/HtmlApiTest/blob/master/src/test/java/org/xmlet/htmlapitest/Utils/CustomVisitor.java">Visitor full example</a>
+    A concrete implementation of this class is present in the 
+    <a href="https://github.com/xmlet/HtmlApiTest/blob/master/src/test/java/org/xmlet/htmlapitest/Utils/CustomVisitor.java">CustomVisitor</a> 
+    class. In this example the HtmlApi is used to write a well formed and indented HTML document to a <i>StringBuilder</i>
+    object.
 </div>
 
 ### Element binding
 
-<div align="justify"> 
-    In order to support repetitive tasks over an element binders were implemented. This allows for users to define, 
-    for example, templates for a given element. An example is presented below.
+<div align="justify">  
+    The HtmlApi provides the definition of reusable templates. This allows programmers to postpone the addition of 
+    information to the defined element tree. An example is shown below.
     <br />
     <br />
 </div>
 
-````java
+```java
 public class BinderExample{
     public void bindExample(){
-        Html<Html> root = new Html<>();
-        Body<Html<Html>> body = root.body();
-        
-        Table<Body<Html<Html>>> table = body.table();
-        table.tr().th().text("Title");
-        table.<List<String>>binder((elem, list) ->
+        Html<Element> root = new Html<>()
+            .body()
+                .table()
+                    .tr()
+                        .th()
+                            .text("Title")
+                        .__()
+                    .__()
+                    .<List<String>>binder((elem, list) ->
                         list.forEach(tdValue ->
                             elem.tr().td().text(tdValue)
                         )
-                    );
-        
-        //Keep adding elements to the body of the document.
+                    )
+                .__()
+            .__()
+        .__();
     }
-}
-````
+ }
+```
 
 <div align="justify"> 
-    In this example a table is created, and a title is added in the first row as a title header. In regard to the values 
-    present in the table instead of having them inserted right away it is possible delay that insertion by indicating 
-    what will the element do when the information is received. This way a template can be defined and reused with 
-    different values. A full example of how this works is available at the method <a href="https://github.com/xmlet/HtmlApiTest/blob/master/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java">testBinderUsage</a>.
+    In this example a <i>Table</i> instance is created, and a <i>Title</i> is added in the first row as a title header, i.e. <i>th</i>. 
+    After defining the table header of the table we can see that we invoke a <i>binder</i> method. This method bounds the <i>Table</i>
+    instance with a function, which defines the behaviour to be performed when this instance receives the information.
+    This way a template can be defined and reused with different values. A full example of how this works is available at 
+    the method <a href="https://github.com/xmlet/HtmlApiTest/blob/master/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java">testBinderUsage</a>.
+    To use this approach we also need to define a concrete implementation of an <i>ElementVisitor</i> which supports element
+    binding. An example of such implementation is shown in the 
+    <a href="https://github.com/xmlet/HtmlApiTest/blob/master/src/test/java/org/xmlet/htmlapitest/Utils/CustomVisitor.java">CustomVisitor</a>
+    class.
 </div>
 
 ## Code Quality
 
 <div align="justify"> 
-    In order to test this library some tests were made, some directly test existing features and others just used 
-    reflection in order to navigate the API in order to check for unexpected behaviour. These tests cover most of the 
-    code, if you are interested in verifying the code quality, vulnerabilities and other various metrics, 
-    check the following link:
-    <br />
-    <br />
-    <a href="https://sonarcloud.io/dashboard?id=com.github.xmlet%3AhtmlApiTest">Sonarcloud Statistics</a>
+    Even though the code present in this DSL is generated code we implemented some tests to assert code quality, 
+    vulnerabilities and other various metrics. The results are available in the <i>xmlet</i> 
+    <a href="https://sonarcloud.io/dashboard?id=com.github.xmlet%3AhtmlApiTest">Sonarcloud</a> page.
 </div>
   
 ## Final remarks
 
 <div align="justify">  
-    Even though this API is created based on aumatically generated classes there are a few nuances. In order to provide 
-    API users with source files and java documentation of the API, the automatically generated classes are decompiled, 
+    Even though this DSL is created based on aumatically generated classes there are a few nuances. In order to provide 
+    DSL users with source files and java documentation of the DSL, the automatically generated classes are decompiled, 
     using <a href="https://mvnrepository.com/artifact/org.jboss.windup.decompiler/decompiler-fernflower/4.0.0.Final">Fernflower Decompiler used by Intellij</a>, 
-    and then compiled regularly by the maven lifecycle. This process, apart from allowing the API users to have the 
+    and then compiled regularly by the maven lifecycle. This process, apart from allowing the DSL users to have the 
     source and documention files also allows to verify that there are no compiler problems with the code, which is very 
-    helpful when making changes in the way that this API is generated.
+    helpful when making changes in the way that this DSL is generated.
 </div>
